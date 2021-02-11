@@ -27,8 +27,9 @@ header-includes: |
 
 # 
 
-question 4: what is the minimal dimension of the vector
+- Minimal dimension: $5$
+- Reason: we need at least 3 digits in binary to represent 5 types.
 
-# bonus
+# 
 
-link:
+- link: https://username.github.io
