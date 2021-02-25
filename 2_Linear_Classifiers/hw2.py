@@ -50,6 +50,29 @@ def plot_data_hyperplane(X, y, w, filename):
     """
 
     # your code here
+    
+    # separte two classes
+    X1 = X[y == +1]
+    X2 = X[y == -1]
+    
+    # plot data samples
+    plt.plot(X1[:,0], X1[:,1], 'ro')
+    plt.plot(X2[:,0], X2[:,1], 'bo')
+    # plt.scatter(X1[:,0], X1[:,1], s=20, facecolors='none', edgecolors='r')
+    # plt.scatter(X2[:,0], X2[:,1], s=20, facecolors='none', edgecolors='b')
+    
+    # plot line
+    x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
+    y_ticks = -1*(x_ticks * w[0] +w[2])/w[1]
+    
+    # set limit
+    plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
+    plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
+    
+    # plot, save, close
+    plt.plot(x_ticks, y_ticks)
+    plt.savefig(filename)
+    plt.close('all')
 
 def plot_mse(X, y, filename):
     """
@@ -75,6 +98,10 @@ def plot_mse(X, y, filename):
     w = np.array([0,0,0]) # just a placeholder
 
     # your code here
+    
+    # convert X into augmented and normalized
+    X = np.hstack((X, np.ones(len(X)).reshape(len(X),1)))
+    
     
 
     # Plot after you have w. 
