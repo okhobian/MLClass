@@ -48,7 +48,7 @@ def plot_data_hyperplane(X, y, w, filename):
     plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
     
     # plot, save, close
-    plt.plot(x_ticks, y_ticks)
+    plt.plot(x_ticks, y_ticks, '-')
     plt.show()
     # plt.savefig(filename)
     plt.close('all')
@@ -74,17 +74,88 @@ def plot_mse(X, y, filename):
 
     return w
 
+def plot_fisher(X, y, filename): 
+    """
+    X: 2-D numpy array, each row is a sample, not augmented 
+    y: 1-D numpy array
+
+    Examples
+    -----------------
+    >>> X,y = generate_data(\
+        {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20}, \
+        {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},\
+        seed=10)
+    >>> plot_fisher(X, y, 'test3.png')
+    array([-1.61707972, -0.0341108 ,  2.54419773])
+    >>> X,y = generate_data(\
+        {'mx':-1.5,'my':2, 'ux':0.1, 'uy':2, 'y':1, 'N':200}, \
+        {'mx':2,'my':-4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},\
+        seed=1)
+    >>> plot_fisher(X, y, 'test4.png')
+    array([-1.54593468,  0.00366625,  0.40890079])
+    """
+
+    w = np.array([0,0,0]) # just a placeholder
+
+    # your code here
+    
+    # separte two classes
+    # X1 = X[y == +1].T   # make into one sample/colum
+    # X2 = X[y == -1].T
+    X1 = X[y == +1]       # make into one sample/row
+    X2 = X[y == -1]
+
+    # compute c_i
+    c1 = np.count_nonzero(y == +1)
+    c2 = np.count_nonzero(y == -1)
+        
+    # compute m_i
+    m1 = np.mean(X1, axis=0)
+    m2 = np.mean(X2, axis=0)
+
+    # compute X_i
+    X1 = X1.T
+    X2 = X2.T
+        
+    # compute M_i
+    M1 = np.array([m1]*c1).T
+    M2 = np.array([m2]*c2).T
+       
+    # compute S_i
+    XminusM = X1 - M1
+    S1 = np.matmul(XminusM, XminusM.T)
+    XminusM = X2 - M2
+    S2 = np.matmul(XminusM, XminusM.T)
+        
+    # compute S_w
+    Sw = S1 + S2
+    
+    # compute w
+    w = np.matmul(Sw.T, np.array(m1-m2))
+    w = np.hstack((w,np.ones(1)))
+
+    # Plot after you have w. 
+    # plot_data_hyperplane(X, y, w, filename)
+    return w
+
 
 if __name__ == "__main__":
 
-    X,y = generate_data(
-            {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
-            {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
-            seed=10)
+    # X,y = generate_data(
+    #         {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
+    #         {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
+    #         seed=10)
 
-    # w = [1, 2, -10]
+    # plot_fisher(X, y, "test.png")
+    
     # plot_mse(X, y, "test.png")
-    # plot_data_hyperplane(X, y, w, "test.png")
+    
+    X = numpy.array([[1,2,3],
+                     [4,5,6],
+                     [7,8,9]]) 
+    y = numpy.array([1,-1,1])
+    w = [1, 2, -10]
+    plot_data_hyperplane(X, y, w, "test.png")
 
 
 # X = np.array([[1,2],

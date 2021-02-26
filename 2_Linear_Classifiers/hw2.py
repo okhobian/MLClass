@@ -7,6 +7,7 @@ import matplotlib.pyplot # import again
 import numpy.linalg 
 import numpy.random
 
+import hashlib
 
 def generate_data(Para1, Para2, seed=0):
     """Generate binary random data
@@ -54,23 +55,21 @@ def plot_data_hyperplane(X, y, w, filename):
     # separte two classes
     X1 = X[y == +1]
     X2 = X[y == -1]
-    
+        
     # plot data samples
     plt.plot(X1[:,0], X1[:,1], 'ro')
     plt.plot(X2[:,0], X2[:,1], 'bo')
-    # plt.scatter(X1[:,0], X1[:,1], s=20, facecolors='none', edgecolors='r')
-    # plt.scatter(X2[:,0], X2[:,1], s=20, facecolors='none', edgecolors='b')
     
     # plot line
     x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
-    y_ticks = -1*(x_ticks * w[0] +w[2])/w[1]
+    y_ticks = -1*(x_ticks * w[0] + w[2])/w[1]
+    plt.plot(x_ticks, y_ticks, '-')
     
     # set limit
     plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
     plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
     
-    # plot, save, close
-    plt.plot(x_ticks, y_ticks)
+    # save, close
     plt.savefig(filename)
     plt.close('all')
 
@@ -137,6 +136,40 @@ def plot_fisher(X, y, filename):
 
     # your code here 
 
+    # separte two classes
+    # X1 = X[y == +1].T   # make into one sample/colum
+    # X2 = X[y == -1].T
+    X1 = X[y == +1]       # make into one sample/row
+    X2 = X[y == -1]
+
+    # compute c_i
+    c1 = np.count_nonzero(y == +1)
+    c2 = np.count_nonzero(y == -1)
+        
+    # compute m_i
+    m1 = np.mean(X1, axis=0)
+    m2 = np.mean(X2, axis=0)
+
+    # compute X_i
+    X1 = X1.T
+    X2 = X2.T
+        
+    # compute M_i
+    M1 = np.array([m1]*c1).T
+    M2 = np.array([m2]*c2).T
+       
+    # compute S_i
+    XminusM = X1 - M1
+    S1 = np.matmul(XminusM, XminusM.T)
+    XminusM = X2 - M2
+    S2 = np.matmul(XminusM, XminusM.T)
+        
+    # compute S_w
+    Sw = S1 + S2
+    
+    # compute w
+    w = np.matmul(Sw.T, np.array(m1-m2))
+    w = np.hstack((w,np.ones(1)))
 
     # Plot after you have w. 
     plot_data_hyperplane(X, y, w, filename)
