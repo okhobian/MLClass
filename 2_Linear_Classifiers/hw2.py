@@ -99,10 +99,13 @@ def plot_mse(X, y, filename):
 
     # your code here
     
-    # convert X into augmented and normalized
+    # convert X into augmented
     X = np.hstack((X, np.ones(len(X)).reshape(len(X),1)))
     
-    
+    # w = (X^T X)^-1 X^T y
+    compound = np.matmul(numpy.transpose(X), X)
+    all_but_y = np.matmul(np.linalg.inv(compound), numpy.transpose(X))
+    w = np.matmul(all_but_y, y)
 
     # Plot after you have w. 
     plot_data_hyperplane(X, y, w, filename)

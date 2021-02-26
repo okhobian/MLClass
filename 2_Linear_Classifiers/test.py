@@ -23,31 +23,69 @@ def generate_data(Para1, Para2, seed=0):
     X = numpy.transpose(X)
     return X, Y 
 
-X,y = generate_data(
-        {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
-        {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
-        seed=10)
-
-w = [1, 2, -10]
-
-# your code here
-X1 = X[y == +1]
-X2 = X[y == -1]
-
-plt.scatter(X1[:,0], X1[:,1], s=20, facecolors='none', edgecolors='r')
-plt.scatter(X2[:,0], X2[:,1], s=20, facecolors='none', edgecolors='b')
-
-# plt.plot(X1[:,0], X1[:,1], 'ro', markersize=5)
-# plt.plot(X2[:,0], X2[:,1], 'bo', markersize=5)
+def plot_data_hyperplane(X, y, w, filename):
+    """
+    X: 2-D numpy array, each row is a sample, not augmented 
+    y: 1-D numpy array, the labels 
+    w: 1-by-3 numpy array, the last element of which is the bias term
+    """
+    # separte two classes
+    X1 = X[y == +1]
+    X2 = X[y == -1]
     
-x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
-y_ticks = -1*(x_ticks * w[0] +w[2])/w[1]
-plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
-plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
-plt.plot(x_ticks, y_ticks)
-plt.show()
-# plt.savefig(filename)
-# plt.close('all')
+    # plot data samples
+    plt.plot(X1[:,0], X1[:,1], 'ro')
+    plt.plot(X2[:,0], X2[:,1], 'bo')
+    # plt.scatter(X1[:,0], X1[:,1], s=20, facecolors='none', edgecolors='r')
+    # plt.scatter(X2[:,0], X2[:,1], s=20, facecolors='none', edgecolors='b')
+    
+    # plot line
+    x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
+    y_ticks = -1*(x_ticks * w[0] +w[2])/w[1]
+    
+    # set limit
+    plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
+    plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
+    
+    # plot, save, close
+    plt.plot(x_ticks, y_ticks)
+    plt.show()
+    # plt.savefig(filename)
+    plt.close('all')
+
+def plot_mse(X, y, filename):
+    """
+    X: 2-D numpy array, each row is a sample, not augmented 
+    y: 1-D numpy array
+    """
+    w = np.array([0,0,0]) # just a placeholder
+
+    # your code here
+
+    # convert X into augmented
+    X = np.hstack((X, np.ones(len(X)).reshape(len(X),1)))
+    
+    compound = np.matmul(numpy.transpose(X), X)
+    all_but_y = np.matmul(np.linalg.inv(compound), numpy.transpose(X))
+    w = np.matmul(all_but_y, y)
+
+    # Plot after you have w. 
+    plot_data_hyperplane(X, y, w, filename)
+
+    return w
+
+
+if __name__ == "__main__":
+
+    X,y = generate_data(
+            {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
+            {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
+            seed=10)
+
+    # w = [1, 2, -10]
+    # plot_mse(X, y, "test.png")
+    # plot_data_hyperplane(X, y, w, "test.png")
+
 
 # X = np.array([[1,2],
 #               [4,5],
