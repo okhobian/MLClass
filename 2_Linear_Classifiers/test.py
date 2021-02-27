@@ -111,8 +111,6 @@ def plot_fisher(X, y, filename):
     # your code here
     
     # separte two classes
-    # X1 = X[y == +1].T   # make into one sample/colum
-    # X2 = X[y == -1].T
     X1 = X[y == +1]       # make into one sample/row
     X2 = X[y == -1]
 
@@ -125,25 +123,28 @@ def plot_fisher(X, y, filename):
     m2 = np.mean(X2, axis=0)
 
     # compute X_i
-    X1 = X1.T
-    X2 = X2.T
+    X_i_1 = X1.T
+    X_i_2 = X2.T
         
     # compute M_i
-    M1 = np.array([m1]*c1).T
-    M2 = np.array([m2]*c2).T
+    M_i_1 = np.array([m1,]*c1).T
+    M_i_2 = np.array([m2,]*c2).T
        
     # compute S_i
-    XminusM = X1 - M1
+    XminusM = X_i_1 - M_i_1
     S1 = np.matmul(XminusM, XminusM.T)
-    XminusM = X2 - M2
+    XminusM = X_i_2 - M_i_2
     S2 = np.matmul(XminusM, XminusM.T)
         
     # compute S_w
     Sw = S1 + S2
     
     # compute w
-    w = np.matmul(Sw.T, np.array(m1-m2))
-    w = np.hstack((w,np.ones(1)))
+    w = np.matmul(np.linalg.inv(Sw), np.array(m1-m2)) # two terms
+    
+    # compute bias of w
+    bias = -np.matmul(w.T, np.array((m1+m2)/2))
+    w = np.hstack((w,bias)) # three terms
 
     # Plot after you have w. 
     # plot_data_hyperplane(X, y, w, filename)
@@ -152,21 +153,21 @@ def plot_fisher(X, y, filename):
 
 if __name__ == "__main__":
 
-    # X,y = generate_data(
-    #         {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
-    #         {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
-    #         seed=10)
-
+    X,y = generate_data(
+    {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
+    {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
+    seed=10)
+    
     # plot_fisher(X, y, "test.png")
     
     # plot_mse(X, y, "test.png")
     
-    X = numpy.array([[1,2,3],
-                     [4,5,6],
-                     [7,8,9]]) 
-    y = numpy.array([1,-1,1])
-    w = [1, 2, -10]
-    plot_data_hyperplane(X, y, w, "test.png")
+    # X = numpy.array([[1,2,3],
+    #                  [4,5,6],
+    #                  [7,8,9]]) 
+    # y = numpy.array([1,-1,1])
+    # w = [1, 2, -10]
+    # plot_data_hyperplane(X, y, w, "test.png")
 
 
 # X = np.array([[1,2],

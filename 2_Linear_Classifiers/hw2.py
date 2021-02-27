@@ -64,7 +64,6 @@ def plot_data_hyperplane(X, y, w, filename):
     x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
     y_ticks = -1*(x_ticks * w[0] + w[2])/w[1]
     plt.plot(x_ticks, y_ticks, 'k-')
-    # plt.plot(x_ticks, y_ticks)
     
     # set limit
     plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
@@ -138,8 +137,6 @@ def plot_fisher(X, y, filename):
     # your code here 
 
     # separte two classes
-    # X1 = X[y == +1].T   # make into one sample/colum
-    # X2 = X[y == -1].T
     X1 = X[y == +1]       # make into one sample/row
     X2 = X[y == -1]
 
@@ -151,27 +148,25 @@ def plot_fisher(X, y, filename):
     m1 = np.mean(X1, axis=0)
     m2 = np.mean(X2, axis=0)
 
-    # print(m1)
-
     # compute X_i
-    X1 = X1.T
-    X2 = X2.T
+    X_i_1 = X1.T
+    X_i_2 = X2.T
         
     # compute M_i
-    M1 = np.array([m1]*c1).T
-    M2 = np.array([m2]*c2).T
+    M_i_1 = np.array([m1,]*c1).T
+    M_i_2 = np.array([m2,]*c2).T
        
     # compute S_i
-    XminusM = X1 - M1
+    XminusM = X_i_1 - M_i_1
     S1 = np.matmul(XminusM, XminusM.T)
-    XminusM = X2 - M2
+    XminusM = X_i_2 - M_i_2
     S2 = np.matmul(XminusM, XminusM.T)
         
     # compute S_w
     Sw = S1 + S2
     
     # compute w
-    w = np.matmul(Sw.T, np.array(m1-m2)) # two terms
+    w = np.matmul(np.linalg.inv(Sw), np.array(m1-m2)) # two terms
     
     # compute bias of w
     bias = -np.matmul(w.T, np.array((m1+m2)/2))
