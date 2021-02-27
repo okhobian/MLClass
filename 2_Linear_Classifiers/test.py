@@ -28,10 +28,21 @@ def plot_data_hyperplane(X, y, w, filename):
     X: 2-D numpy array, each row is a sample, not augmented 
     y: 1-D numpy array, the labels 
     w: 1-by-3 numpy array, the last element of which is the bias term
+    
+    X = numpy.array([[1,2,3],
+                     [4,5,6],
+                     [7,8,9]]) 
+    y = numpy.array([1,-1,1])
+    
     """
     # separte two classes
     X1 = X[y == +1]
     X2 = X[y == -1]
+    
+        
+    # print(X1[:,0])
+    # print(X1[:,1])
+    # print(X2)
     
     # plot data samples
     plt.plot(X1[:,0], X1[:,1], 'ro')
@@ -48,7 +59,7 @@ def plot_data_hyperplane(X, y, w, filename):
     plt.ylim(np.min(X[:,1]), np.max(X[:,1]))
     
     # plot, save, close
-    plt.plot(x_ticks, y_ticks, '-')
+    plt.plot(x_ticks, y_ticks, 'k-')
     plt.show()
     # plt.savefig(filename)
     plt.close('all')

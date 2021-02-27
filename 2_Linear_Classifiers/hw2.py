@@ -47,7 +47,7 @@ def plot_data_hyperplane(X, y, w, filename):
     >>> filename = "test.png"
     >>> plot_data_hyperplane(X, y, w, filename)
     >>> hashlib.md5(open(filename, 'rb').read()).hexdigest()
-    '9df878adf0a4f5276ade67e61d00a123'
+    '242f39ee1cf8d7874609b98de8585fa0'
     """
 
     # your code here
@@ -63,7 +63,8 @@ def plot_data_hyperplane(X, y, w, filename):
     # plot line
     x_ticks = np.array([np.min(X[:,0]), np.max(X[:,0])])
     y_ticks = -1*(x_ticks * w[0] + w[2])/w[1]
-    plt.plot(x_ticks, y_ticks, '-')
+    plt.plot(x_ticks, y_ticks, 'k-')
+    # plt.plot(x_ticks, y_ticks)
     
     # set limit
     plt.xlim(np.min(X[:,0]), np.max(X[:,0]))
@@ -150,6 +151,8 @@ def plot_fisher(X, y, filename):
     m1 = np.mean(X1, axis=0)
     m2 = np.mean(X2, axis=0)
 
+    # print(m1)
+
     # compute X_i
     X1 = X1.T
     X2 = X2.T
@@ -168,8 +171,11 @@ def plot_fisher(X, y, filename):
     Sw = S1 + S2
     
     # compute w
-    w = np.matmul(Sw.T, np.array(m1-m2))
-    w = np.hstack((w,np.ones(1)))
+    w = np.matmul(Sw.T, np.array(m1-m2)) # two terms
+    
+    # compute bias of w
+    bias = -np.matmul(w.T, np.array((m1+m2)/2))
+    w = np.hstack((w,bias)) # three terms
 
     # Plot after you have w. 
     plot_data_hyperplane(X, y, w, filename)
