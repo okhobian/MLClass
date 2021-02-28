@@ -153,21 +153,21 @@ def plot_fisher(X, y, filename):
 
 if __name__ == "__main__":
 
-    X,y = generate_data(
-    {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
-    {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
-    seed=10)
+    # X,y = generate_data(
+    # {'mx':1,'my':2, 'ux':0.1, 'uy':1, 'y':1, 'N':20},
+    # {'mx':2,'my':4, 'ux':.1, 'uy':1, 'y':-1, 'N':50},
+    # seed=10)
     
     # plot_fisher(X, y, "test.png")
     
     # plot_mse(X, y, "test.png")
     
-    # X = numpy.array([[1,2,3],
-    #                  [4,5,6],
-    #                  [7,8,9]]) 
-    # y = numpy.array([1,-1,1])
-    # w = [1, 2, -10]
-    # plot_data_hyperplane(X, y, w, "test.png")
+    X = numpy.array([[1,2,3],
+                     [4,5,6],
+                     [7,8,9]]) 
+    y = numpy.array([1,-1,1])
+    w = [1, 2, -10]
+    plot_data_hyperplane(X, y, w, "test.png")
 
 
 # X = np.array([[1,2],
