@@ -26,7 +26,7 @@ $J(\mathbf{W}) = \sum_{i=1}^N (\mathbf{x}_i^T \mathbf{W} -y_i)^2$
 
    * My thoughts: since the prediction part will always be positive, then the error should always be the difference between two positive numbers. So minus -1 for example in the non-nomarlized function should now be just minus 1. Adding the square to the lable (y_i) can help with this.
 
-    * $J(\mathbf{W}) = \sum_{i=1}^N (\mathbf{x}_i^T \mathbf{W} -y_i^2)^2$
+    * $J(\mathbf{W}) = \sum_{i=1}^N (\mathbf{x''}_i^T \mathbf{W} -y_i^2)^2$
 
 4. Please find the solution for minimizing the new loss function. Keep variables and font style consistent with those in the class notes/slides, except that you can reuse the matrix
 $\mathbb{X}=   \begin{pmatrix}
@@ -37,9 +37,7 @@ $\mathbb{X}=   \begin{pmatrix}
   \end{pmatrix}$, 
   each **row** of which is re-purposed into a normalized and augmented feature vector. The right most column of the new $\mathbb{X}$ should contain only $1$'s and $-1$'s.
 
-   * $\frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} = 2\sum\limits_{i=1}^N \mathbf{x}_i (\mathbf{x}_i^T \mathbf{W} - y_i^2) = (0, \dots, 0)^T$
-
-    * $\sum\limits_{i=1}^N \mathbf{x}_i \mathbf{x}i^T \mathbf{W} = \sum\limits{i=1}^N \mathbf{x}_i y_i^2$
+   * $\frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} = 2\sum\limits_{i=1}^N \mathbf{x}_i (\mathbf{x''}_i^T \mathbf{W} -y_i^2) = (0, \dots, 0)^T$
 
     * $\sum_{i=1}^N \mathbf{x}_i \mathbf{x}_i^T =\mathbb{X}^T \mathbb{X}$
 
