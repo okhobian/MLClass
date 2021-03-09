@@ -22,11 +22,19 @@ def estimate_gini_impurity(feature_values, threshold, labels, polarity):
 
     return gini_impurity
 
+def estimate_gini_impurity_expectation(feature_values, threshold, labels):
+    expectation = 0
+    
+    p_left = sum(feature_values <= threshold) / len(feature_values)
+
+    print(p_left)
+
+    return expectation
 
 feature_values = numpy.array([1,2,3,4,5,6,7,8])
 labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
-threshold = 0
-result = estimate_gini_impurity(feature_values, threshold, labels, operator.le)
-print(result)
+threshold = 1
+result = estimate_gini_impurity_expectation(feature_values, threshold, labels)
+# print(result)
 # for threshold in range(0,8): 
 #     print("%.5f" % estimate_gini_impurity(feature_values, threshold, labels, operator.gt))

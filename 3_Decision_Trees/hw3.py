@@ -88,6 +88,17 @@ def estimate_gini_impurity_expectation(feature_values, threshold, labels):
     """
 
     # YOUR CODE HERE
+    
+    # compute P(F>T) and P(F<=T)
+    p_below = sum(feature_values <= threshold) / len(feature_values)
+    p_above = sum(feature_values >  threshold) / len(feature_values)
+    
+    # compute gini impurities
+    g_below = estimate_gini_impurity(feature_values, threshold, labels, operator.le)
+    g_above = estimate_gini_impurity(feature_values, threshold, labels, operator.gt)
+
+    # compute expectation
+    expectation = p_below*g_below + p_above*g_above
 
     return expectation
 
