@@ -36,23 +36,17 @@ def estimate_gini_impurity_expectation(feature_values, threshold, labels):
 
     return expectation
 
-feature_values = numpy.array([1,2,3,4,5,6,7,8])
+# q1
+feature_values = numpy.array([12,4,5,6,7,8,9,11])
 labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
-threshold = 1
-result = estimate_gini_impurity_expectation(feature_values, threshold, labels)
+print( estimate_gini_impurity(feature_values, 10, labels, operator.gt) )
 
+# q2
+feature_values = numpy.array([12,4,5,6,7,8,9,11])
+labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
+print( estimate_gini_impurity(feature_values, 5, labels, operator.le) )
 
-
-X = numpy.random.randint(1, 5, (8,3))
-y = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
-thresholds = numpy.random.randint(2, 100, (3,3))
-
-print(thresholds)
-best_threshold, best_feature = numpy.unravel_index(numpy.argmin(thresholds, axis=None), thresholds.shape)
-
-print(best_threshold)
-print(best_feature)
-
-# print(result)
-# for threshold in range(0,8): 
-#     print("%.5f" % estimate_gini_impurity(feature_values, threshold, labels, operator.gt))
+# q3
+feature_values = numpy.array([12,4,5,6,7,8,9,11])
+labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
+print( estimate_gini_impurity_expectation(feature_values, 5, labels) )
