@@ -39,6 +39,26 @@ def estimate_gini_impurity(feature_values, threshold, labels, polarity):
     """
 
     # YOUR CODE HERE
+    gini_impurity = 0
+    
+    # array of booleans indicates which samples satisfy the threshold
+    boolean_satisfy = polarity(feature_values, threshold)
+    
+    # count how many samples satisfied. set to neg_inf if none
+    num_satisfy = sum( boolean_satisfy )
+    if num_satisfy==0:
+        num_satisfy = numpy.finfo(float).eps
+    
+    # count how many satisfied samples belong to class +1/-1
+    num_positive = sum( labels[boolean_satisfy] == +1 )
+    num_negative = sum( labels[boolean_satisfy] == -1 )
+    
+    # ratio of each class
+    p1 = num_positive / num_satisfy
+    p2 = num_negative / num_satisfy
+    
+    # compute gini impurity
+    gini_impurity = 1 - p1**2 - p2**2
 
     return gini_impurity
 
