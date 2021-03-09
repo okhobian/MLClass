@@ -23,11 +23,16 @@ def estimate_gini_impurity(feature_values, threshold, labels, polarity):
     return gini_impurity
 
 def estimate_gini_impurity_expectation(feature_values, threshold, labels):
-    expectation = 0
+    # compute P(F>T) and P(F<=T)
+    p_below = sum(feature_values <= threshold) / len(feature_values)
+    p_above = sum(feature_values >  threshold) / len(feature_values)
     
-    p_left = sum(feature_values <= threshold) / len(feature_values)
+    # compute gini impurities
+    g_below = estimate_gini_impurity(feature_values, threshold, labels, operator.le)
+    g_above = estimate_gini_impurity(feature_values, threshold, labels, operator.gt)
 
-    print(p_left)
+    # compute expectation
+    expectation = p_below*g_below + p_above*g_above
 
     return expectation
 
@@ -35,6 +40,19 @@ feature_values = numpy.array([1,2,3,4,5,6,7,8])
 labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
 threshold = 1
 result = estimate_gini_impurity_expectation(feature_values, threshold, labels)
+
+
+
+X = numpy.random.randint(1, 5, (8,3))
+y = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
+thresholds = numpy.random.randint(2, 100, (3,3))
+
+print(thresholds)
+best_threshold, best_feature = numpy.unravel_index(numpy.argmin(thresholds, axis=None), thresholds.shape)
+
+print(best_threshold)
+print(best_feature)
+
 # print(result)
 # for threshold in range(0,8): 
 #     print("%.5f" % estimate_gini_impurity(feature_values, threshold, labels, operator.gt))

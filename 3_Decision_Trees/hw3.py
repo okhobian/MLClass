@@ -195,7 +195,21 @@ def grid_search_split_midpoint(X, y):
 
     # YOUR CODE HERE
 
-    return grid, best_feature, best_threshold 
+    # compute grid
+    grid = numpy.zeros(thresholds.shape)
+    for row in range(0, thresholds.shape[0]):
+        for col in range(0, thresholds.shape[1]):
+            grid[row][col] = estimate_gini_impurity_expectation(X[:,col], thresholds[row][col], y)
+    
+    # get index of the minimum element
+    row_idx, col_idx = numpy.unravel_index(numpy.argmin(grid, axis=None), grid.shape)
+    
+    # best_feature: int, the index of the column containing the minimal value in grid.
+    # best_threshold: float, the threshold of the best_feature that minimizes the value in grid.
+    best_feature = col_idx
+    best_threshold = thresholds[row_idx][col_idx]
+   
+    return grid, best_feature, best_threshold
 
 def you_rock(N, R, d):
     """
