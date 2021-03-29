@@ -28,7 +28,9 @@
 
 2. Let $w_b$ be $3.3149$. Using the $\mathbf{w}$ obtained above, what is the prediction for a new sample $[1,1,0]^T$? 
 
-    $$ \mathbf{w}^T \mathbf{x} + w_b = [-1.6498, -0.3193,  -0.2632] * [1,1,0]^T + 3.3149 = -1.9691 $$
+    $$ \mathbf{w}^T \mathbf{x} + w_b = [-1.6498, -0.3193,  -0.2632] * [1,1,0]^T + 3.3149 = -1.9691 < 0 $$
+
+    prediction is: -1
 
 3. What are the equations of the two gutters per the $\mathbf{w}$ and $w_b$ obtained above? 
 
