@@ -18,9 +18,9 @@
     Be sure to include steps. If you have only the final answer, you won't get any point.
 <br />
     <table><tr><td bgcolor=DFDFDF>
-    $\mathbf{w} = \sum_{\mathbf{x}_k\in N_s} \lambda_k y_k \mathbf{x_k}$
-    $ = (1)(1)\mathbf{x_1} + (0.7383)(1)\mathbf{x_2} + (0)(1)\mathbf{x_3} + (0.0411)(-1)\mathbf{x_4} + (1)(-1)\mathbf{x_5} + (0.6972)(-1)   \mathbf{x_6}$
-    $= [-1.6498, -0.3193,  -0.2632]$
+    $$\mathbf{w} = \sum_{\mathbf{x}_k\in N_s} \lambda_k y_k \mathbf{x_k}$$
+    $$ = (1)(1)\mathbf{x_1} + (0.7383)(1)\mathbf{x_2} + (0)(1)\mathbf{x_3} + (0.0411)(-1)\mathbf{x_4} + (1)(-1)\mathbf{x_5} + (0.6972)(-1)\mathbf{x_6}$$
+    $$= [-1.6498, -0.3193,  -0.2632]$$
     </td></tr></table>
  <br />
 
@@ -41,7 +41,7 @@
     </td></tr></table>
 <br />
 
-1. With the $\mathbf{w}$ obtained above, and the assumption that $w_b$ is 1, identify samples that fall into the margin and those do not. A sample falls into the margin if it is between the two gutters, i.e., $$-1 < \mathbf{w}^T\mathbf{x} + w_b < 1$$ where $\mathbf{x}$ is the (unaugmented) feature vector of the sample. 
+4. With the $\mathbf{w}$ obtained above, and the assumption that $w_b$ is 1, identify samples that fall into the margin and those do not. A sample falls into the margin if it is between the two gutters, i.e., $$-1 < \mathbf{w}^T\mathbf{x} + w_b < 1$$ where $\mathbf{x}$ is the (unaugmented) feature vector of the sample. 
 
    Show your steps, especially the value of the prediction $\mathbf{w}^T\mathbf{x} + w_b$.  If you have only the final answer, you won't get any point. 
 
@@ -70,7 +70,7 @@
 
     $y_i (\mathbf{w}^T\mathbf{x}_i+w_b) \le -1$
 
-    In other words, since the sample is misclassified, its label $y_i$ and the prediction $\mathbf{w}^T\mathbf{x}_i+w_b$ will always be oppsited to each other, in our case, always one equals to +1, the other one equals to -1. Thus, the multiplication will always be less or equal to -1. So we can conclude the Ture/False as follows (NOTE: I marked TRUE to 4 and 6 because $\le-1$ is within the range of $\le1$ and $\le0$):
+    In other words, since the sample is misclassified, its label $y_i$ and the prediction $\mathbf{w}^T\mathbf{x}_i+w_b$ will always be oppsited to each other, in our case, always one $\ge$ +1, the other one $\le$ -1. Thus, the multiplication will always be less or equal to -1. So we can conclude the Ture/False as follows (NOTE: I marked TRUE to 4 and 6 because $\le-1$ is within the range of $\le1$ and $\le0$):
 
     </td></tr></table>
 
