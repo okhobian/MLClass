@@ -65,6 +65,9 @@ def study_C_gridCV(C_range):
     paras = {'C':C_range}
 
     # your code here
+    clf = sklearn.model_selection.GridSearchCV(model, paras)
+    clf.fit(X, y)
+    best_C = clf.best_params_['C']
 
     return best_C
 
@@ -88,6 +91,16 @@ def study_C_and_sigma_gridCV(C_range, sigma_range):
     X, y = sklearn.utils.shuffle(X, y, random_state=1)
 
     # your code here
+    model = sklearn.svm.SVC(
+            kernel='rbf',
+            random_state=1)
+
+    paras = {'C':C_range, 'gamma':sigma_range}
+
+    clf = sklearn.model_selection.GridSearchCV(model, paras)
+    clf.fit(X, y)
+    best_C = clf.best_params_['C']
+    best_sigma = clf.best_params_['gamma']
 
     return best_C, best_sigma
 
