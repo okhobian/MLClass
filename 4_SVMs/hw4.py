@@ -24,7 +24,15 @@ def study_C_fix_split(C_range):
     X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=1)
 
     # Your code here
-
+    score = 0
+    for c in C_range:
+        clf = sklearn.svm.SVC(C=c, kernel='linear', random_state=1)
+        clf.fit(X_train, y_train)
+        cur_score = clf.score(X_test, y_test)
+        if cur_score > score:
+            score = cur_score
+            best_C = c
+    
     return best_C
 
 def study_C_gridCV(C_range):
