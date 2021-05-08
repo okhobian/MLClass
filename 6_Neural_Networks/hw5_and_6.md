@@ -55,11 +55,11 @@ Please show intermediate steps for all computational problems below. Giving only
 
     Hint: Eq. (1)
 
-7. [3pt] Continuing from problem 6 above, if the loss is defined  as $E=\hat{y}-y$, what is the value of $\partial E / \partial x_1$? And what is the value of $\partial E / \partial w_1$?
+7. [3pt] Continuing from problem 6 above, if the loss is defined  as $E=\hat{y}-y$, what is the value of $\partial E / \partial x_1$? And what is the value of $\partial E / \partial w_1$? Please treat $y$ as a constant. 
 
     Hint for second question: Eq. (2). And think what is the new ${\partial E \over \partial \hat{y}} = {\partial \hat{y}-y \over \partial \hat{y}}$?
 
-8. [2pt] What is the value of 
+8. [Bonus, 2pt] What is the value of 
    ${\partial E \over \partial \mathbf{x}} = 
    \begin{pmatrix}
    \partial E \over \partial  x_0 \\
@@ -75,7 +75,7 @@ Please show intermediate steps for all computational problems below. Giving only
    \vdots \\
    \end{pmatrix}$? 
 
-   Your answers should be two column real-valued vectors.
+   Your answers should be two column vectors containing real values.
 
    Hint for second question: See the last equation on the same page with Eq. (2). But note that the $E$ for that equation is neg log loss, not the assumed loss for Problem 7. 
 
@@ -100,4 +100,4 @@ Hint: The slides "Recap:..." and "A grounded example..."
 
 13. [1.5pts] Finally, how should $\mathbb{W}^{(l)}$ given in Problem 9 be updated to based on $\nabla^{(l)}$ obtained in Problem 12, for all $l\in[0..2]$? Assume the learning rate $\rho=1$. 
 
-14. [5pts] In [the demo for Unit 5 Regression](https://github.com/forrestbao/MLClass/blob/master/5_Regression/5_regression.ipynb), we used a neural network with $\tanh$ as the activation function for all neurons. The range of $\tanh$ is from -1 to 1, which means that the output from that neural network is limited between -1 and 1.  But in that problem, the target or the prediction ranges from 0 to 4. How do you explain? Look into the source code of scikit-learn to find out. 
+14. [Bonus, 5pts] In [the demo for Unit 5 Regression](https://github.com/forrestbao/MLClass/blob/master/5_Regression/5_regression.ipynb), we used a neural network with $\tanh$ as the activation function for all neurons. The range of $\tanh$ is from -1 to 1, which means that the output from that neural network is limited between -1 and 1.  But in that problem, the target or the prediction ranges from 0 to 4. How do you explain? Look into the source code of scikit-learn to find out. 
